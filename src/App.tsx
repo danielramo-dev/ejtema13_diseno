@@ -1,35 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { FaHome, FaSearch, FaCompass, FaVideo, FaEnvelope, FaBell, FaPlus, FaCogs, FaUser, FaEllipsisH } from "react-icons/fa";
+import List from "./components/Sidebar";
+import Card, { CardBody } from "./components/Card";
 
 function App() {
-  const [count, setCount] = useState(0)
+    // Función para manejar la selección de un elemento
+    const handleSelect = (elemento: string) => {
+        console.log("Elemento seleccionado:", elemento);
+    };
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    const menuItems = [
+        { label: "Inicio", icon: <FaHome /> },
+        { label: "Buscar", icon: <FaSearch /> },
+        { label: "Explorar", icon: <FaCompass /> },
+        { label: "Reels", icon: <FaVideo /> },
+        { label: "Mensajes", icon: <FaEnvelope /> },
+        { label: "Notificaciones", icon: <FaBell /> },
+        { label: "Crear", icon: <FaPlus /> },
+        { label: "Panel", icon: <FaCogs /> },
+        { label: "Perfil", icon: <FaUser />, extraSpacing: true }, // Espaciado grande debajo de "Perfil"
+        { label: "Threads", icon: " @ " }, 
+        { label: "Más", icon: <FaEllipsisH /> } // Ícono de "Más opciones"
+    ];
+
+    return (
+        <Card>
+            <CardBody title="Instagram" />
+            <List data={menuItems} onSelect={handleSelect} />
+        </Card>
+    );
 }
 
-export default App
+export default App;
