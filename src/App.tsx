@@ -1,11 +1,32 @@
-import { FaHome, FaSearch, FaCompass, FaVideo, FaEnvelope, FaBell, FaPlus, FaCogs, FaUser, FaEllipsisH } from "react-icons/fa";
-import List from "./components/Sidebar";
-import Card, { CardBody } from "./components/Card";
+import React, { useState } from "react";
+import { 
+  FaHome, FaSearch, FaCompass, FaVideo, FaEnvelope, FaBell, 
+  FaPlus, FaCogs, FaUser, FaEllipsisH 
+} from "react-icons/fa";
+import List from "./components/List";
+import WeatherCard from "./components/WeatherCard";
+import WeatherForecast from "./components/WeatherForecast";
 
-function App() {
-    // Función para manejar la selección de un elemento
-    const handleSelect = (elemento: string) => {
-        console.log("Elemento seleccionado:", elemento);
+const App: React.FC = () => {
+    const [selectedWeather, setSelectedWeather] = useState({
+      city: "Fuenlabrada",
+      temperature: 14,
+      condition: "Soleado",
+      humidity: 39,
+      wind: 3,
+      data: [2, 1, 7, 14, 8, 5,4],  
+    });
+
+    // Función para actualizar el clima
+    const handleSelectDay = (temperature: number, condition: string, humidity: number, wind: number, newData: number[]) => {
+      setSelectedWeather({
+        city: "Fuenlabrada",
+        temperature,
+        condition,
+        humidity,
+        wind,
+        data: newData.every(num => typeof num === "number" && !isNaN(num)) ? newData : [0, 0, 0, 0, 0, 0, 0],
+      });
     };
 
     const menuItems = [
@@ -17,17 +38,25 @@ function App() {
         { label: "Notificaciones", icon: <FaBell /> },
         { label: "Crear", icon: <FaPlus /> },
         { label: "Panel", icon: <FaCogs /> },
-        { label: "Perfil", icon: <FaUser />, extraSpacing: true }, // Espaciado grande debajo de "Perfil"
+        { label: "Perfil", icon: <FaUser />, extraSpacing: true }, 
         { label: "Threads", icon: " @ " }, 
-        { label: "Más", icon: <FaEllipsisH /> } // Ícono de "Más opciones"
+        { label: "Más", icon: <FaEllipsisH /> } 
     ];
 
     return (
-        <Card>
-            <CardBody title="Instagram" />
-            <List data={menuItems} onSelect={handleSelect} />
-        </Card>
+        <div style={{ display: "flex" }}>
+            {/* Menú lateral */}
+            <List data={menuItems} />
+
+            {/* Contenido Principal */}
+            <div style={{ flex: 1, marginLeft: "250px", padding: "20px" }}>
+                <div className="container mt-4">
+                    <WeatherCard {...selectedWeather} />
+                    <WeatherForecast onSelectDay={handleSelectDay} />
+                </div>
+            </div>
+        </div>
     );
-}
+};
 
 export default App;
