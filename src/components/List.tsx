@@ -30,7 +30,7 @@ function List(props: ListProps) {
             boxShadow: "2px 0px 5px rgba(0, 0, 0, 0.1)",
             padding: "20px"
         }}>
-            <h2 style={{ marginBottom: "20px" }}>Instagram</h2>
+            <h2 style={{ marginBottom: "20px" }}>Desarrollo Personal</h2>
             <ul className="list-group" style={{ listStyle: "none", padding: 0 }}>
                 {props.data.map((item, i) => (
                     <li
